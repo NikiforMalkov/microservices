@@ -1,0 +1,67 @@
+version: '3.8'
+services:
+
+  example:
+    build:
+      context: ./example-microservice
+      dockerfile: ./docker/Dockerfile
+    entrypoint: sh -c "./wait-for-it.sh -t 300 mysql:3306 && /usr/bin/composer install && php-fpm"
+    volumes:
+      - ./example-microservice:/usr/local/src/example-microservice
+    environment:
+      - APP_ENV=local
+      - APP_KEY=base64:7t3iJGYKu1jqjeEQixGEL8mXwCr6XgVRmd6ryRII3Jo=
+      - APP_DEBUG=true
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=example
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=null
+      - REDIS_PORT=6379
+      - REDIS_CLIENT=phpredis
+      - REDIS_SCHEME=tcp
+      - LOG_CHANNEL=stack
+      - LOG_LEVEL=debug
+
+  mysql:
+    image: mysql:8
+    platform: linux/x86_64
+    volumes:
+      - ./bin/mysql:/docker-entrypoint-initdb.d
+      - ./mysqldata:/var/lib/mysql
+    ports:
+      - 33060:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+
+  redis:
+    image: redis:6.2.5-alpine
+    platform: linux/x86_64
+    volumes:
+      - ./redisdata:/data
+    ports:
+      - 63790:6379
+
+  phpmyadmin:
+    image: phpmyadmin
+    platform: linux/x86_64
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mysql
+    depends_on:
+      - mysql
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    platform: linux/x86_64
+    hostname: redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - 63791:8081
+    depends_on:
+      - redis
