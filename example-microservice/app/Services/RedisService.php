@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use Dizi\DateHelperCommon\DTO\Example\ExampleData;
-use Dizi\DateHelperCommon\Events\Order\ExampleCreatedEvent;
+use Dizi\DateHelperCommon\Events\Example\ExampleCreatedEvent;
 use Dizi\DateHelperCommon\Services\RedisService as BaseRedisService;
 
 class RedisService extends BaseRedisService
