@@ -1,3 +1,40 @@
+
+# run project
+
+docker-compose up -d 
+
+# make request 
+
+Make request from curl or postman
+
+```
+curl --location 'http://localhost:8002/api/v1/example' \
+--header 'Cookie: XSRF-TOKEN=eyJpdiI6IktFenZpTnllVHdvR1dydzcxeVY5SHc9PSIsInZhbHVlIjoib1llK3JYY29wRnd2WnpxVXNJbm4zbkh6TVpKN1A5aE5wTS9BSDcyQkYrakdPSVQzMldwVG44YjViTFdIRGdMdUZnV0krMWRDRmZkZmNoRzNNOGdVbWwrZXRNT2c5RHY1cXZIcUE4QURkVjE2OW15MGFrVXh0OUNpc0QwUUlncjkiLCJtYWMiOiI3NmM3NjA2NDJjMjRjYzA5YTAwZjdkYzM1ODEzZDI4NGRiZjc3OGQ2NjU0NTcyNzkyMzdlZWRlYThjOWQxMmQ5IiwidGFnIjoiIn0%3D; quiz_session=eyJpdiI6InNuMUdrdTNoOW0wWk1UckorMDIyYkE9PSIsInZhbHVlIjoieHZhZWh5V2FjSXpjM1NTOFo4SDVRa091UW5tNW5zV0pXZ01WQlNDTnFobGZwU0YwT0pYR3l6Zk5sVWM0akMrQS9Tdll2TkFLUTEvTGNyR25Cb21NRVIxcVhpYU1qQWswS1IvZmhsenpFQ211SUNZWU83MEo2a2kwQ09FSmcrSG0iLCJtYWMiOiJiNjk1Y2U1ZjhlOTM2ODRhYzIwYWQ0YmIxMjA4ODBjZTllM2I5ZmVjYmIwNTk1YTVmNGUyZWU2OGM0Yzk0MjA5IiwidGFnIjoiIn0%3D' \
+--form 'name="name"' \
+--form 'description="description"'
+```
+
+# consume events
+
+You can see processing events in logs, events process every 10 seconds.
+
+```
+storage/logs/laravel.log
+```
+
+# create event
+
+```
+php artisan app:create-example
+```
+
+# consume event
+
+```
+php artisan app:consume-create-example
+```
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
